@@ -1,8 +1,26 @@
 package pl.ymz.todoapp.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-@RepositoryRestResource
-interface TaskRepository extends JpaRepository<Task, Integer> {
+import java.util.List;
+
+@RepositoryRestResource //(path = "todos", collectionResourceRel = "tudus" ) // adnotacje do zmian w url itp
+public interface TaskRepository extends JpaRepository<Task, Integer> {
+
+    @Override
+    @RestResource(exported = false) //blokuje użycie delete
+    void deleteById(Integer integer);
+
+    @Override
+    @RestResource(exported = false) //blokuje użycie delete
+    void delete(Task task);
+
+    @RestResource(path = "isdone", rel= "isdone")
+    List<Task> findByDoneIsTrue();
+
+    @RestResource(path = "done", rel = "done")
+    List<Task> findByDone(@Param("state") boolean done);
 }
