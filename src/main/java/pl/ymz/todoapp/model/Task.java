@@ -17,7 +17,9 @@ class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NotBlank(message = "Opis zadania wymagany")
     private String description;
+
     private Boolean done;
 }
