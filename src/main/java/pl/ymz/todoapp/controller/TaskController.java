@@ -11,15 +11,14 @@ import pl.ymz.todoapp.model.TaskRepository;
 
 import java.util.List;
 
-//@RepositoryRestController
 @RestController
 class TaskController {
 
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
-    private final TaskRepository taskRepository;
+    private final TaskRepository repository;
 
-    TaskController(final TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    TaskController(final TaskRepository repository) {
+        this.repository = repository;
     }
 
     //    @RequestMapping(method = RequestMethod.GET, path = "/tasks")
@@ -27,13 +26,13 @@ class TaskController {
     //taka adnotacja zamiast tej wyżej jeśli i tak metoda GET
     ResponseEntity<List<Task>> readAllTasks() {
         logger.warn("Kontroler z /tasks z wyłączeniem parametrów sort page i size");
-        return ResponseEntity.ok(taskRepository.findAll());
+        return ResponseEntity.ok(repository.findAll());
     }
 
     @GetMapping("/tasks")
         //taka adnotacja zamiast tej wyżej jeśli i tak metoda GET
     ResponseEntity<List<Task>> readAllTasks(Pageable page) {
         logger.info("Kontroler z parametrami stron");
-        return ResponseEntity.ok(taskRepository.findAll(page).getContent());
+        return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 }
