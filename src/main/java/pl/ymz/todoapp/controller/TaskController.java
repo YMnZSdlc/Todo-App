@@ -3,7 +3,6 @@ package pl.ymz.todoapp.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.model.Task;
@@ -36,7 +35,7 @@ class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    ResponseEntity<Task> readTaskById(@PathVariable int id){
+    ResponseEntity<Task> readTaskById(@PathVariable int id) {
         logger.info("Odczyt konkretnego zadania po ID:" + id);
         return repository.findById(id)
                 .map(task -> ResponseEntity.ok(task))
@@ -45,7 +44,7 @@ class TaskController {
 
     @PutMapping("/tasks/{id}")
     ResponseEntity<?> updateTask(@PathVariable("id") int taskId, @RequestBody @Valid Task taskToUpdate) {
-        if(!repository.existsById(taskId)){
+        if (!repository.existsById(taskId)) {
             return ResponseEntity.notFound().build();
         }
         taskToUpdate.setId(taskId);
@@ -54,7 +53,7 @@ class TaskController {
     }
 
     @PostMapping("/tasks")
-    ResponseEntity<Task> createTask(@RequestBody @Valid Task taskToCreate){
+    ResponseEntity<Task> createTask(@RequestBody @Valid Task taskToCreate) {
         logger.info("Próba utworzenia zadania");
         Task task = repository.save(taskToCreate);
         logger.info("Utworzono zadanie o nr ID:" + taskToCreate.getId());
