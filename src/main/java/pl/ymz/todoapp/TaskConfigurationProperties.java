@@ -7,13 +7,26 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("task")
 public class TaskConfigurationProperties {
 
-    private boolean allowMultipleTasksFromTemplate;
+    private Template template;
 
-    public boolean isAllowMultipleTasksFromTemplate() {
-        return allowMultipleTasksFromTemplate;
+    public Template getTemplate() {
+        return template;
     }
 
-    public void setAllowMultipleTasksFromTemplate(boolean allowMultipleTasksFromTemplate) {
-        this.allowMultipleTasksFromTemplate = allowMultipleTasksFromTemplate;
+    public void setTemplate(final Template template) {
+        this.template = template;
+    }
+
+    public static class Template {
+
+        private boolean allowMultipleTasks;
+
+        public boolean isAllowMultipleTasks() {
+            return allowMultipleTasks;
+        }
+
+        public void setAllowMultipleTasks(final boolean allowMultipleTasks) {
+            this.allowMultipleTasks = allowMultipleTasks;
+        }
     }
 }
