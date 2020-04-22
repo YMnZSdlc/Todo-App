@@ -1,6 +1,6 @@
 spring:
+  datasource:
+    url: 'jdbc:h2:file:C:\YMZ\Udemy\Todo-App\todo.db'
   h2.console:
     enabled: true
-    path: '/console'
-  datasource:
-    url: 'jdbc:h2:mem:todo-db'
+    path: '/h2-console'
