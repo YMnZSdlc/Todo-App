@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskRepository;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -47,8 +48,22 @@ class TaskController {
         if (!repository.existsById(taskId)) {
             return ResponseEntity.notFound().build();
         }
-        taskToUpdate.setId(taskId);
-        repository.save(taskToUpdate);
+        repository.findById(taskId)
+                .ifPresent(task -> {
+                    task.updateFrom(taskToUpdate);
+                    repository.save(task);
+                });
+        return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    @PatchMapping("/tasks/{id}")
+    public ResponseEntity<?> toggleTask(@PathVariable int id) {
+        if (!repository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        repository.findById(id)
+                .ifPresent(task -> task.setDone(!task.getDone()));
         return ResponseEntity.noContent().build();
     }
 
