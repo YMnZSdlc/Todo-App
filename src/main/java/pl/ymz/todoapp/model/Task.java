@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "tasks")
-public class Task extends BaseEntity {
+public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,8 @@ public class Task extends BaseEntity {
     private String description;
     private Boolean done;
     private LocalDateTime deadline;
+    @Embedded
+    private Audit audit = new Audit();
 
     public void updateFrom(final Task source) {
         description = source.description;
