@@ -75,5 +75,4 @@ class TaskController {
         return ResponseEntity.created(URI.create("/" + task.getId()))
                 .body(task);
     }
-
 }
