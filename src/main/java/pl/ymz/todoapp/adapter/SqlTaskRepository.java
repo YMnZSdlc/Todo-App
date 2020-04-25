@@ -10,7 +10,7 @@ import pl.ymz.todoapp.model.TaskRepository;
 @Repository
 interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer> {
 
-    //Przykład własnego zapytania SQL do bazy
+    //Przykład własnego zapytania SQL do bazy na nazwach kolumn z bazy
     @Override
     @Query(nativeQuery = true, value = "select count(*)>0 from TASKS where id=:id")
     boolean existsById(@Param("id") Integer id);
