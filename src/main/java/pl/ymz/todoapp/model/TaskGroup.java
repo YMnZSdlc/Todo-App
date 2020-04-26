@@ -11,13 +11,21 @@ public class TaskGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotBlank(message = "Opis zadania wymagany")
+
+    @NotBlank(message = "Opis grupy zadań wymagany")
     private String description;
+
     private boolean done;
-    @Embedded
-    private Audit audit = new Audit();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Task> tasks;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public TaskGroup() {
     }
@@ -57,5 +65,13 @@ public class TaskGroup {
 
     void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    Project getProject() {
+        return project;
+    }
+
+    void setProject(Project project) {
+        this.project = project;
     }
 }

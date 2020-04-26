@@ -11,15 +11,20 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @NotBlank(message = "Opis zadania wymagany")
     private String description;
+
     private boolean done;
+
     private LocalDateTime deadline;
-    @Embedded
-    private Audit audit = new Audit();
+
     @ManyToOne
     @JoinColumn(name = "task_group_id")
     private TaskGroup group;
+
+    @Embedded
+    private Audit audit = new Audit();
 
     public Task() {
     }

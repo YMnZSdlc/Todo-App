@@ -9,10 +9,13 @@ import pl.ymz.todoapp.model.TaskGroupRepository;
 import java.util.List;
 
 @Repository
-public interface SqlTaskGroupRepository extends TaskGroupRepository, JpaRepository<TaskGroup, Integer> {
+interface SqlTaskGroupRepository extends TaskGroupRepository, JpaRepository<TaskGroup, Integer> {
 
     //Zapytanie oparte na encjach, nazywamy to HQL (JPQL). Możemy se odpuścić "select *"
     @Override
-    @Query("from TaskGroup join fetch TaskGroup.tasks")
+    @Query("from TaskGroup g join fetch g.tasks")
     List<TaskGroup> findAll();
+
+    @Override
+    boolean existsByDoneIsFalseAndProject_Id(Integer projectId);
 }
