@@ -13,7 +13,7 @@ interface SqlTaskGroupRepository extends TaskGroupRepository, JpaRepository<Task
 
     //Zapytanie oparte na encjach, nazywamy to HQL (JPQL). Możemy se odpuścić "select *"
     @Override
-    @Query("from TaskGroup g join fetch g.tasks")
+    @Query("select distinct g from TaskGroup g left join fetch g.tasks")
     List<TaskGroup> findAll();
 
     @Override

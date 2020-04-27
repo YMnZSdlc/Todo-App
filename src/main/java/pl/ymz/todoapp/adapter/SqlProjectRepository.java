@@ -13,6 +13,6 @@ interface SqlProjectRepository extends ProjectRepository, JpaRepository<Project,
 
     //Zapytanie oparte na encjach, nazywamy to HQL (JPQL). Możemy se odpuścić "select *"
     @Override
-    @Query("from Project p join fetch p.projectSteps")
+    @Query("select distinct p from Project p join fetch p.projectSteps")
     List<Project> findAll();
 }
