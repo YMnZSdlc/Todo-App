@@ -14,14 +14,11 @@ public class Project {
     @NotBlank(message = "Opis projektu grupy zadań wymagany")
     private String description;
     @OneToMany(mappedBy = "project")
-    private Set<TaskGroup> taskGroups;
+    private Set<TaskGroup> groups;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
-    private Set<ProjectStep> projectSteps;
+    private Set<ProjectStep> steps;
     @Embedded
     private Audit audit = new Audit();
-
-    public Project() {
-    }
 
     public int getId() {
         return id;
@@ -39,19 +36,19 @@ public class Project {
         this.description = description;
     }
 
-    Set<TaskGroup> getTaskGroups() {
-        return taskGroups;
+    Set<TaskGroup> getGroups() {
+        return groups;
     }
 
-    void setTaskGroups(Set<TaskGroup> taskGroups) {
-        this.taskGroups = taskGroups;
+    void setGroups(Set<TaskGroup> taskGroups) {
+        this.groups = taskGroups;
     }
 
-    Set<ProjectStep> getProjectSteps() {
-        return projectSteps;
+    public Set<ProjectStep> getSteps() {
+        return steps;
     }
 
-    void setProjectSteps(Set<ProjectStep> projectSteps) {
-        this.projectSteps = projectSteps;
+    void setSteps(Set<ProjectStep> projectSteps) {
+        this.steps = projectSteps;
     }
 }
