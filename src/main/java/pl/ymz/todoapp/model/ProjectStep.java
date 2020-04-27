@@ -10,16 +10,12 @@ public class ProjectStep {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @NotBlank(message = "Opis szablonu zadania wymagany")
     private String description;
-
     private int daysToDeadline;
-
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
-
     @Embedded
     private Audit audit = new Audit();
 

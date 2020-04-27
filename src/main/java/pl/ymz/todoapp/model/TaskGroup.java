@@ -11,19 +11,14 @@ public class TaskGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @NotBlank(message = "Opis grupy zadań wymagany")
     private String description;
-
     private boolean done;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Task> tasks;
-
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
-
     @Embedded
     private Audit audit = new Audit();
 

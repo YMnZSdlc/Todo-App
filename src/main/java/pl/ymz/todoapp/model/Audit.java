@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 class Audit {
 
     private LocalDateTime createdOn;
-
     private LocalDateTime updatedOn;
 
     @PrePersist

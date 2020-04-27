@@ -11,16 +11,12 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @NotBlank(message = "Opis projektu grupy zadań wymagany")
     private String description;
-
     @OneToMany(mappedBy = "project")
     private Set<TaskGroup> taskGroups;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Set<ProjectStep> projectSteps;
-
     @Embedded
     private Audit audit = new Audit();
 
