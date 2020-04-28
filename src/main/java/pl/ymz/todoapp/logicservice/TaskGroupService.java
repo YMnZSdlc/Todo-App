@@ -1,16 +1,18 @@
 package pl.ymz.todoapp.logicservice;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 import pl.ymz.todoapp.model.TaskGroup;
-import pl.ymz.todoapp.rpository.TaskGroupRepository;
-import pl.ymz.todoapp.rpository.TaskRepository;
 import pl.ymz.todoapp.model.projectiondto.GroupOfTasksReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupOfTasksWriteModel;
+import pl.ymz.todoapp.rpository.TaskGroupRepository;
+import pl.ymz.todoapp.rpository.TaskRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequestScope
 public class TaskGroupService {
 
     private TaskGroupRepository taskGroupRepository;
@@ -35,7 +37,7 @@ public class TaskGroupService {
     }
 
     public void toggleGroup(int groupId) {
-        if (taskRepository.existsByDoneIsFalseAndGroup_Id(groupId)){
+        if (taskRepository.existsByDoneIsFalseAndGroup_Id(groupId)) {
             throw new IllegalStateException("W grupie są nieskończone zadania.");
         }
         TaskGroup result = taskGroupRepository.findById(groupId)
