@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.model.TaskRepository;
+import pl.ymz.todoapp.rpository.TaskRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;

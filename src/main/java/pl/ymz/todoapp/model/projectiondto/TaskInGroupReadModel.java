@@ -1,14 +1,14 @@
-package pl.ymz.todoapp.model.projection;
+package pl.ymz.todoapp.model.projectiondto;
 
 import pl.ymz.todoapp.model.Task;
 
 //DTO-data transfer object do czytania
-public class GroupTaskReadModel {
+public class TaskInGroupReadModel {
 
     private String description;
     private boolean done;
 
-    public GroupTaskReadModel(Task source) {
+    public TaskInGroupReadModel(Task source) {
         description = source.getDescription();
         done = source.isDone();
     }

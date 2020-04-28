@@ -1,14 +1,14 @@
-package pl.ymz.todoapp.model.projection;
+package pl.ymz.todoapp.model.projectiondto;
 
 import pl.ymz.todoapp.model.TaskGroup;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GroupWriteModel {
+public class GroupOfTasksWriteModel {
 
     private String description;
-    private Set<GroupTaskWriteModel> tasks;
+    private Set<TaskInGroupWriteModel> tasks;
 
     public String getDescription() {
         return description;
@@ -18,11 +18,11 @@ public class GroupWriteModel {
         this.description = description;
     }
 
-    public Set<GroupTaskWriteModel> getTasks() {
+    public Set<TaskInGroupWriteModel> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskWriteModel> tasks) {
+    public void setTasks(Set<TaskInGroupWriteModel> tasks) {
         this.tasks = tasks;
     }
 
@@ -31,7 +31,7 @@ public class GroupWriteModel {
         result.setDescription(description);
         result.setTasks(
                 tasks.stream()
-                .map(GroupTaskWriteModel::toTask)
+                .map(TaskInGroupWriteModel::toTask)
                 .collect(Collectors.toSet()));
         return result;
     }

@@ -1,11 +1,11 @@
-package pl.ymz.todoapp.adapter;
+package pl.ymz.todoapp.adapterrepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.model.TaskRepository;
+import pl.ymz.todoapp.rpository.TaskRepository;
 
 @Repository
 interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer> {

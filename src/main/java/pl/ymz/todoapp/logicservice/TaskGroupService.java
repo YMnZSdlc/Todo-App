@@ -1,12 +1,11 @@
-package pl.ymz.todoapp.logic;
+package pl.ymz.todoapp.logicservice;
 
 import org.springframework.stereotype.Service;
-import pl.ymz.todoapp.TaskConfigurationProperties;
 import pl.ymz.todoapp.model.TaskGroup;
-import pl.ymz.todoapp.model.TaskGroupRepository;
-import pl.ymz.todoapp.model.TaskRepository;
-import pl.ymz.todoapp.model.projection.GroupReadModel;
-import pl.ymz.todoapp.model.projection.GroupWriteModel;
+import pl.ymz.todoapp.rpository.TaskGroupRepository;
+import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.projectiondto.GroupOfTasksReadModel;
+import pl.ymz.todoapp.model.projectiondto.GroupOfTasksWriteModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,15 +22,15 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source) {
+    public GroupOfTasksReadModel createGroup(GroupOfTasksWriteModel source) {
         TaskGroup result = taskGroupRepository.save(source.toGroup());
-        return new GroupReadModel(result);
+        return new GroupOfTasksReadModel(result);
     }
 
-    public List<GroupReadModel> readAll() {
+    public List<GroupOfTasksReadModel> readAll() {
         return taskGroupRepository.findAll()
                 .stream()
-                .map(GroupReadModel::new)
+                .map(GroupOfTasksReadModel::new)
                 .collect(Collectors.toList());
     }
 

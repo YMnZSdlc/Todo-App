@@ -1,4 +1,4 @@
-package pl.ymz.todoapp.model.projection;
+package pl.ymz.todoapp.model.projectiondto;
 
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskGroup;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GroupReadModel {
+public class GroupOfTasksReadModel {
 
     private String description;
     /**
@@ -15,9 +15,9 @@ public class GroupReadModel {
      * deadline from the last task in group
      */
     private LocalDateTime deadline;
-    private Set<GroupTaskReadModel> tasks;
+    private Set<TaskInGroupReadModel> tasks;
 
-    public GroupReadModel(TaskGroup source) {
+    public GroupOfTasksReadModel(TaskGroup source) {
         description = source.getDescription();
         source.getTasks()
                 .stream()
@@ -26,7 +26,7 @@ public class GroupReadModel {
                 .ifPresent(date -> deadline = date);
         tasks = source.getTasks()
                 .stream()
-                .map(GroupTaskReadModel::new)
+                .map(TaskInGroupReadModel::new)
                 .collect(Collectors.toSet());
     }
 
@@ -46,11 +46,11 @@ public class GroupReadModel {
         this.deadline = deadline;
     }
 
-    public Set<GroupTaskReadModel> getTasks() {
+    public Set<TaskInGroupReadModel> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskReadModel> tasks) {
+    public void setTasks(Set<TaskInGroupReadModel> tasks) {
         this.tasks = tasks;
     }
 }

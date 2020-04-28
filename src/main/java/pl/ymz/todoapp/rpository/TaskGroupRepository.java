@@ -1,4 +1,6 @@
-package pl.ymz.todoapp.model;
+package pl.ymz.todoapp.rpository;
+
+import pl.ymz.todoapp.model.TaskGroup;
 
 import java.util.List;
 import java.util.Optional;

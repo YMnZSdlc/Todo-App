@@ -1,10 +1,10 @@
-package pl.ymz.todoapp.adapter;
+package pl.ymz.todoapp.adapterrepository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.ymz.todoapp.model.Project;
-import pl.ymz.todoapp.model.ProjectRepository;
+import pl.ymz.todoapp.rpository.ProjectRepository;
 
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package pl.ymz.todoapp.model.projection;
+package pl.ymz.todoapp.model.projectiondto;
 
 import pl.ymz.todoapp.model.Task;
 
 import java.time.LocalDateTime;
 
 //To jest w sumie taki DTO-data transfer object, do zapisu.
-public class GroupTaskWriteModel {
+public class TaskInGroupWriteModel {
 
     private String description;
     private LocalDateTime deadline;

@@ -1,7 +1,8 @@
-package pl.ymz.todoapp.model;
+package pl.ymz.todoapp.rpository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pl.ymz.todoapp.model.Task;
 
 import java.util.List;
 import java.util.Optional;
