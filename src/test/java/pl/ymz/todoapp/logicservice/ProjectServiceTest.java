@@ -2,50 +2,36 @@ package pl.ymz.todoapp.logicservice;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pl.ymz.todoapp.model.TaskGroup;
+import pl.ymz.todoapp.TaskConfigurationProperties;
 import pl.ymz.todoapp.rpository.TaskGroupRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ProjectServiceTest {
 
 
-
     @Test
-    @DisplayName("Powinien rzucać wyjątek IllegalStateException, kiedy konfiguracja pozwala na 1 grupę i nieukończona grupa istnieje." +
-            "Should throw IllegalStateException when configurated to allow just 1 group and other undone group exist.")
+    @DisplayName("Powinien rzucać wyjątek IllegalStateException, kiedy konfiguracja pozwala na 1 grupę i nieukończona grupa istnieje.")
     void createGroup_noMultipleGroupsConfigAndUndoneGroupExist_throwsIllegalStateException() {
         //given
-        var mockGroupRepository = new TaskGroupRepository() {
-
-            @Override
-            public List<TaskGroup> findAll() {
-                return null;
-            }
-
-            @Override
-            public Optional<TaskGroup> findById(Integer id) {
-                return Optional.empty();
-            }
-
-            @Override
-            public TaskGroup save(TaskGroup entity) {
-                return null;
-            }
-
-            @Override
-            public boolean existsByDoneIsFalseAndProject_Id(Integer projectId) {
-                return false;
-            }
-        };
+        var mockGroupRepository = mock(TaskGroupRepository.class);
+        when(mockGroupRepository.existsByDoneIsFalseAndProject_Id(anyInt())).thenReturn(true);
+        var mockTemplate = mock(TaskConfigurationProperties.Template.class);
+        when(mockTemplate.isAllowMultipleTasks()).thenReturn(false);
+        var mockConfig = mock(TaskConfigurationProperties.class);
+        when(mockConfig.getTemplate()).thenReturn(mockTemplate);
+        //system under test
+        var toTest = new ProjectService(null,mockGroupRepository,mockConfig);
 
         //when
+        toTest.createGroup(LocalDateTime.now(),0);
 
         //then
-
     }
 
 //    @Test
