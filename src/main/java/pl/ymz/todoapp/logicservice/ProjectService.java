@@ -27,8 +27,7 @@ public class ProjectService {
         this.taskGroupRepository = taskGroupRepository;
         this.config = config;
     }
-
-
+    
     public List<Project> readAll() {
         return projectRepository.findAll();
     }
@@ -38,13 +37,14 @@ public class ProjectService {
     }
 
     public GroupOfTasksReadModel createGroup(LocalDateTime deadline, int projectId) {
-        if (config.getTemplate().isAllowMultipleTasks()
-                && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)) {
+        if (taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)
+                && !config.getTemplate().isAllowMultipleTasks()) {
             throw new IllegalStateException("Tylko jedna nieskończona grupa z projektu jest dozwolona.");
         }
+
         TaskGroup targetGroup = projectRepository.findById(projectId)
                 .map(project -> {
-                    var result = new TaskGroup();
+                    TaskGroup result = new TaskGroup();
                     result.setDescription(project.getDescription());
                     result.setTasks(project.getSteps()
                             .stream()
@@ -55,5 +55,4 @@ public class ProjectService {
                 }).orElseThrow(() -> new IllegalArgumentException("Nie znaleziono projektu z podanym id."));
         return new GroupOfTasksReadModel(targetGroup);
     }
-
 }

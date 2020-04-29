@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//GroupReadModel w kursie
 public class GroupOfTasksReadModel {
 
     private String description;
