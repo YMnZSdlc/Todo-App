@@ -37,8 +37,8 @@ public class ProjectService {
     }
 
     public GroupOfTasksReadModel createGroup(LocalDateTime deadline, int projectId) {
-        if (taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)
-                && !config.getTemplate().isAllowMultipleTasks()) {
+        if (!config.getTemplate().isAllowMultipleTasks()
+                && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)) {
             throw new IllegalStateException("Tylko jedna nieskończona grupa z projektu jest dozwolona.");
         }
 
