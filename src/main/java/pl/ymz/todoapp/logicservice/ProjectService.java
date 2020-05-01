@@ -42,17 +42,18 @@ public class ProjectService {
             throw new IllegalStateException("Tylko jedna nieskończona grupa z projektu jest dozwolona.");
         }
 
-        TaskGroup targetGroup = projectRepository.findById(projectId)
+        TaskGroup result = projectRepository.findById(projectId)
                 .map(project -> {
-                    TaskGroup result = new TaskGroup();
-                    result.setDescription(project.getDescription());
-                    result.setTasks(project.getSteps()
+                    var targetGroup = new TaskGroup();
+                    targetGroup.setDescription(project.getDescription());
+                    targetGroup.setTasks(project.getSteps()
                             .stream()
                             .map(step -> new Task(step.getDescription(), deadline.plusDays(step.getDaysToDeadline())))
                             .collect(Collectors.toSet())
                     );
-                    return result;
+                    targetGroup.setProject(project);
+                    return taskGroupRepository.save(targetGroup);
                 }).orElseThrow(() -> new IllegalArgumentException("Nie znaleziono projektu z podanym id."));
-        return new GroupOfTasksReadModel(targetGroup);
+        return new GroupOfTasksReadModel(result);
     }
 }

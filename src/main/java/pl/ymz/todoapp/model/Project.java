@@ -20,6 +20,9 @@ public class Project {
     @Embedded
     private Audit audit = new Audit();
 
+    public Project() {
+    }
+
     public int getId() {
         return id;
     }

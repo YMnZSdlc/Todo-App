@@ -92,6 +92,18 @@ class ProjectServiceTest {
                 .hasMessageContaining("Nie znaleziono projektu z podanym id");
     }
 
+    @Test
+    @DisplayName("Powinien stworzyć nową grupę zadań z projektu")
+    void createGroup_configOk_existingProjectCreateAndSavesNewGroup(){
+        //given
+        TaskConfigurationProperties mockConfig = getMockConfigurationProperties(true);
+        //and
+        var mockRepository = mock(ProjectRepository.class);
+        when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
+
+
+    }
+
     private TaskConfigurationProperties getMockConfigurationProperties(final boolean allowMulti) {
         var mockTemplate = mock(TaskConfigurationProperties.Template.class);
         when(mockTemplate.isAllowMultipleTasks()).thenReturn(allowMulti);

@@ -43,5 +43,6 @@ public class TaskGroupService {
         TaskGroup result = taskGroupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono grupy o podanym IP"));
         result.setDone(!result.isDone());
+        taskGroupRepository.save(result);
     }
 }
