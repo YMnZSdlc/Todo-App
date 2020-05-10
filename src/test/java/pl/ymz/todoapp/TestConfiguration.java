@@ -1,20 +1,29 @@
 package pl.ymz.todoapp;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.rpository.TaskRepository;
 
+import javax.sql.DataSource;
 import java.util.*;
 
 @Configuration
 class TestConfiguration {
+
+    @Bean
+    @Primary
+    @Profile("!integration")
+    DataSource e2eTestDataSource() {
+        var result = new DriverManagerDataSource("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", "");
+        result.setDriverClassName("org.h2.Driver");
+        return result;
+    }
 
     @Bean
     @Primary
