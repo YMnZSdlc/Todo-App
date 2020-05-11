@@ -58,13 +58,22 @@ class TestConfiguration {
             }
 
             @Override
-            public Task save(Task entity) {
-                return tasks.put(tasks.size() + 1, entity);
+            public List<Task> findByDone(boolean done) {
+                return null;
             }
 
             @Override
-            public List<Task> findByDone(boolean done) {
-                return null;
+            public Task save(final Task entity) {
+                int key = tasks.size() + 1;
+                try {
+                    var field = Task.class.getDeclaredField("id");
+                    field.setAccessible(true);
+                    field.set(entity, key);
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    throw new RuntimeException();
+                }
+                tasks.put(key, entity);
+                return tasks.get(key);
             }
         };
     }
