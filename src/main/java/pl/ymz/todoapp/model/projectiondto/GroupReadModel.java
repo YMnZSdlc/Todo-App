@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 //GroupReadModel w kursie
-public class GroupOfTasksReadModel {
+public class GroupReadModel {
 
     private String description;
     /**
@@ -18,7 +18,7 @@ public class GroupOfTasksReadModel {
     private LocalDateTime deadline;
     private Set<TaskInGroupReadModel> tasks;
 
-    public GroupOfTasksReadModel(TaskGroup source) {
+    public GroupReadModel(TaskGroup source) {
         description = source.getDescription();
         source.getTasks()
                 .stream()

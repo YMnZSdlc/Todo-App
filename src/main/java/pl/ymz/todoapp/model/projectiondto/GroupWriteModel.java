@@ -5,10 +5,10 @@ import pl.ymz.todoapp.model.TaskGroup;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GroupOfTasksWriteModel {
+public class GroupWriteModel {
 
     private String description;
-    private Set<TaskInGroupWriteModel> tasks;
+    private Set<GroupTaskWriteModel> tasks;
 
     public String getDescription() {
         return description;
@@ -18,11 +18,11 @@ public class GroupOfTasksWriteModel {
         this.description = description;
     }
 
-    public Set<TaskInGroupWriteModel> getTasks() {
+    public Set<GroupTaskWriteModel> getTasks() {
         return tasks;
     }
 
-    public void setTasks(Set<TaskInGroupWriteModel> tasks) {
+    public void setTasks(Set<GroupTaskWriteModel> tasks) {
         this.tasks = tasks;
     }
 
@@ -31,7 +31,7 @@ public class GroupOfTasksWriteModel {
         result.setDescription(description);
         result.setTasks(
                 tasks.stream()
-                .map(TaskInGroupWriteModel::toTask)
+                .map( source -> source.toTask())
                 .collect(Collectors.toSet()));
         return result;
     }

@@ -6,7 +6,7 @@ import pl.ymz.todoapp.TaskConfigurationProperties;
 import pl.ymz.todoapp.model.Project;
 import pl.ymz.todoapp.model.ProjectStep;
 import pl.ymz.todoapp.model.TaskGroup;
-import pl.ymz.todoapp.model.projectiondto.GroupOfTasksReadModel;
+import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.rpository.ProjectRepository;
 import pl.ymz.todoapp.rpository.TaskGroupRepository;
 
@@ -87,7 +87,7 @@ class ProjectServiceTest {
         //and
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(true);
         //system under test
-        var toTest = new ProjectService(mockRepository, null, mockConfig);
+        var toTest = new ProjectService(mockRepository, null, mockConfig, null);
 
         //when
         var exception = catchThrowable(() -> toTest.createGroup(LocalDateTime.now(), 0));
@@ -113,10 +113,10 @@ class ProjectServiceTest {
         //and
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(true);
         //system under test
-        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig);
+        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig, null);
 
         //when
-        GroupOfTasksReadModel result = toTest.createGroup(today, 1);
+        GroupReadModel result = toTest.createGroup(today, 1);
 
         //then
         assertThat(result).hasFieldOrPropertyWithValue("description", "ipsum");
@@ -155,7 +155,7 @@ class ProjectServiceTest {
         var mockTaskGroupRepository = mock(TaskGroupRepository.class);
         when(mockTaskGroupRepository.existsByDoneIsFalseAndProject_Id(anyInt())).thenReturn(true);
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(false);
-        return new ProjectService(null, mockTaskGroupRepository, mockConfig);
+        return new ProjectService(null, mockTaskGroupRepository, mockConfig, null);
     }
 
     private InMemoryTaskGroupRepository inMemoryTaskGroupRepository() {

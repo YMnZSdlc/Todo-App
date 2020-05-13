@@ -3,8 +3,8 @@ package pl.ymz.todoapp.logicservice;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 import pl.ymz.todoapp.model.TaskGroup;
-import pl.ymz.todoapp.model.projectiondto.GroupOfTasksReadModel;
-import pl.ymz.todoapp.model.projectiondto.GroupOfTasksWriteModel;
+import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
+import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
 import pl.ymz.todoapp.rpository.TaskGroupRepository;
 import pl.ymz.todoapp.rpository.TaskRepository;
 
@@ -24,15 +24,15 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
 
-    public GroupOfTasksReadModel createGroup(GroupOfTasksWriteModel source) {
+    public GroupReadModel createGroup(GroupWriteModel source) {
         TaskGroup result = taskGroupRepository.save(source.toGroup());
-        return new GroupOfTasksReadModel(result);
+        return new GroupReadModel(result);
     }
 
-    public List<GroupOfTasksReadModel> readAll() {
+    public List<GroupReadModel> readAll() {
         return taskGroupRepository.findAll()
                 .stream()
-                .map(GroupOfTasksReadModel::new)
+                .map(GroupReadModel::new)
                 .collect(Collectors.toList());
     }
 

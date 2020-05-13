@@ -5,7 +5,7 @@ import pl.ymz.todoapp.model.Task;
 import java.time.LocalDateTime;
 
 //To jest w sumie taki DTO-data transfer object, do zapisu.
-public class TaskInGroupWriteModel {
+public class GroupTaskWriteModel {
 
     private String description;
     private LocalDateTime deadline;
