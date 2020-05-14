@@ -99,7 +99,7 @@ class ProjectServiceTest {
     }
 
     @Test
-    @DisplayName("Powinien stworzyć nową grupę zadań z projektu")
+    @DisplayName("Powinien stworzyć nową grupę zadań z projektu.")
     void createGroup_configOk_existingProjectCreateAndSavesNewGroup() {
         //given
         var today = LocalDate.now().atStartOfDay();
@@ -109,11 +109,12 @@ class ProjectServiceTest {
         when(mockRepository.findById(anyInt())).thenReturn(Optional.of(project));
         //and
         InMemoryTaskGroupRepository inMemoryGroupRepository = inMemoryTaskGroupRepository();
+        var serviceWithInMemRepo = new  TaskGroupService(inMemoryGroupRepository, null);
         int countBeforeCall = inMemoryGroupRepository.count();
         //and
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(true);
         //system under test
-        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig, null);
+        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig, serviceWithInMemRepo);
 
         //when
         GroupReadModel result = toTest.createGroup(today, 1);
@@ -173,6 +174,7 @@ class ProjectServiceTest {
         @Override
         public List<TaskGroup> findAll() {
             return new ArrayList<>(map.values());
+
         }
 
         @Override
