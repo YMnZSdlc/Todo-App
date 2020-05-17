@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.rpository.TaskRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -43,6 +46,12 @@ class TaskController {
     ResponseEntity<List<Task>> readAllTasks(Pageable page) {
         logger.info("Kontroler z parametrami stron");
         return ResponseEntity.ok(taskRepository.findAll(page).getContent());
+    }
+
+    @GetMapping
+    void oldFashionWay (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        System.out.println(req.getParameter("foo"));
+        resp.getWriter().println("Test starej metody na zapytanie i odpowiedź");
     }
 
     @GetMapping("/{id}")
