@@ -3,7 +3,6 @@ package pl.ymz.todoapp.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.model.Task;
@@ -54,14 +53,10 @@ class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/search/done", produces = MediaType.APPLICATION_JSON_VALUE)
-    String foo(){
-        return "foo - jason";
-    }
-
-    @GetMapping(value = "/search/done", produces = MediaType.TEXT_XML_VALUE)
-    String bar(){
-        return "bar - xml";
+    @GetMapping("/search/done")
+    ResponseEntity<List<Task>> readDoneTasks(@RequestParam(defaultValue = "true") boolean state) {
+        logger.info("Wykorzystany readDoneTasks z parametrem:" + state);
+        return ResponseEntity.ok(taskRepository.findByDone(state));
     }
 
     @PutMapping("/{id}")
