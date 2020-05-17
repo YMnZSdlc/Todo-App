@@ -5,16 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.ymz.todoapp.logicservice.TaskService;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.rpository.TaskRepository;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/tasks")
@@ -22,9 +21,12 @@ class TaskController {
 
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepository;
+    private  final TaskService taskService;
 
-    TaskController(final TaskRepository taskRepository) {
+    TaskController(final TaskRepository taskRepository,
+                   final TaskService taskService) {
         this.taskRepository = taskRepository;
+        this.taskService = taskService;
     }
 
     @PostMapping
@@ -37,9 +39,10 @@ class TaskController {
     }
 
     @GetMapping(params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Task>> readAllTasks() {
+    CompletableFuture<ResponseEntity<List<Task>>> readAllTasks() {
         logger.warn("Kontroler z /tasks z wyłączeniem parametrów sort page i size");
-        return ResponseEntity.ok(taskRepository.findAll());
+        return taskService.findAllAsync().thenApply(ResponseEntity::ok);
+//        return ResponseEntity.ok(taskRepository.findAll());
     }
 
     @GetMapping
