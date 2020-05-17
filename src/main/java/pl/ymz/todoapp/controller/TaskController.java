@@ -48,11 +48,11 @@ class TaskController {
         return ResponseEntity.ok(taskRepository.findAll(page).getContent());
     }
 
-    @GetMapping
-    void oldFashionWay (HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println(req.getParameter("foo"));
-        resp.getWriter().println("Test starej metody na zapytanie i odpowiedź");
-    }
+//    @GetMapping
+//    void oldFashionWay (HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//        System.out.println(req.getParameter("foo"));
+//        resp.getWriter().println("Test starej metody na zapytanie i odpowiedź");
+//    }
 
     @GetMapping("/{id}")
     ResponseEntity<Task> readTask(@PathVariable int id) {
