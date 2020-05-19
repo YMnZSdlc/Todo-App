@@ -1,7 +1,11 @@
 package pl.ymz.todoapp.logicservice;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.annotation.RequestScope;
+import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskGroup;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.rpository.TaskRepository;
 
+import java.util.List;
+
 @Repository
 interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer> {
 
@@ -19,4 +21,6 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer>
     @Override
     boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
 
+    @Override
+    List<Task> findAllByGroup_Id(Integer groupId);
 }

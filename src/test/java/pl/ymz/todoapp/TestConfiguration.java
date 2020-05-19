@@ -58,11 +58,6 @@ class TestConfiguration {
             }
 
             @Override
-            public List<Task> findByDone(boolean done) {
-                return null;
-            }
-
-            @Override
             public Task save(final Task entity) {
                 int key = tasks.size() + 1;
                 try {
@@ -74,6 +69,16 @@ class TestConfiguration {
                 }
                 tasks.put(key, entity);
                 return tasks.get(key);
+            }
+
+            @Override
+            public List<Task> findByDone(boolean done) {
+                return null;
+            }
+
+            @Override
+            public List<Task> findAllByGroup_Id(Integer groupId) {
+                return List.of();
             }
         };
     }

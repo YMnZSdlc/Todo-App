@@ -28,9 +28,8 @@ class TaskController {
     ResponseEntity<Task> createTask(@RequestBody @Valid Task taskToCreate) {
         logger.info("Próba utworzenia zadania");
         Task task = taskRepository.save(taskToCreate);
-        logger.info("Utworzono zadanie o nr ID:" + taskToCreate.getId());
-        return ResponseEntity.created(URI.create("/" + task.getId()))
-                .body(task);
+        logger.info("Utworzono zadanie o nr ID:" + task.getId());
+        return ResponseEntity.created(URI.create("/" + task.getId())).body(task);
     }
 
     @GetMapping(params = {"!sort", "!page", "!size"})
