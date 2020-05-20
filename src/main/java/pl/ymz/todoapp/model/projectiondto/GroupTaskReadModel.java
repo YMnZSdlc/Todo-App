@@ -3,12 +3,12 @@ package pl.ymz.todoapp.model.projectiondto;
 import pl.ymz.todoapp.model.Task;
 
 //DTO-data transfer object do czytania
-public class TaskInGroupReadModel {
+public class GroupTaskReadModel {
 
     private String description;
     private boolean done;
 
-    public TaskInGroupReadModel(Task source) {
+    public GroupTaskReadModel(Task source) {
         description = source.getDescription();
         done = source.isDone();
     }
