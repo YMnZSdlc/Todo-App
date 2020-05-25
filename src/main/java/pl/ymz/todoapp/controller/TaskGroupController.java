@@ -31,9 +31,9 @@ public class TaskGroupController {
     @PostMapping
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel groupToCreate) {
         logger.info("Próba utworzenia grupy zadań");
-//        GroupReadModel taskGroup = taskGroupService.createGroup(groupToCreate);
-//        return ResponseEntity.created(URI.create("/")).body(taskGroup);
-        return ResponseEntity.created(URI.create("/")).body(taskGroupService.createGroup(groupToCreate));
+        GroupReadModel taskGroup = taskGroupService.createGroup(groupToCreate);
+        return ResponseEntity.created(URI.create("/" + taskGroup.getId())).body(taskGroup);
+//        return ResponseEntity.created(URI.create("/")).body(taskGroupService.createGroup(groupToCreate));
     }
 
     @GetMapping

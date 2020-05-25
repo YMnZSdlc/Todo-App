@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 //GroupReadModel w kursie
 public class GroupReadModel {
 
+    private int id;
     private String description;
     /**
      * „deadline” z ostatniego zadania w grupie
@@ -19,6 +20,7 @@ public class GroupReadModel {
     private Set<GroupTaskReadModel> tasks;
 
     public GroupReadModel(TaskGroup source) {
+        id = source.getId();
         description = source.getDescription();
         source.getTasks()
                 .stream()
@@ -29,6 +31,14 @@ public class GroupReadModel {
                 .stream()
                 .map(GroupTaskReadModel::new)
                 .collect(Collectors.toSet());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(final int id){
+        this.id = id;
     }
 
     public String getDescription() {
@@ -51,7 +61,7 @@ public class GroupReadModel {
         return tasks;
     }
 
-    public void setTasks(Set<GroupTaskReadModel> tasks) {
+    public void setTasks(final Set<GroupTaskReadModel> tasks) {
         this.tasks = tasks;
     }
 }
