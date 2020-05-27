@@ -3,8 +3,8 @@ package pl.ymz.todoapp.logicservice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.ymz.todoapp.model.TaskGroup;
-import pl.ymz.todoapp.rpository.TaskGroupRepository;
-import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.TaskGroupRepository;
+import pl.ymz.todoapp.model.TaskRepository;
 
 import java.util.Optional;
 

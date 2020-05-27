@@ -6,10 +6,8 @@ import pl.ymz.todoapp.model.Project;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskGroup;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
-import pl.ymz.todoapp.model.projectiondto.GroupTaskWriteModel;
-import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
-import pl.ymz.todoapp.rpository.ProjectRepository;
-import pl.ymz.todoapp.rpository.TaskGroupRepository;
+import pl.ymz.todoapp.model.ProjectRepository;
+import pl.ymz.todoapp.model.TaskGroupRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

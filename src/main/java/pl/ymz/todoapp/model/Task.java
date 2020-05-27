@@ -36,18 +36,11 @@ public class Task {
         }
     }
 
-    public void updateFrom(final Task source) {
-        description = source.description;
-        done = source.done;
-        deadline = source.deadline;
-        group = source.group;
-    }
-
     public int getId() {
         return id;
     }
 
-    void setId(int id) {
+    void setId(final int id) {
         this.id = id;
     }
 
@@ -55,7 +48,7 @@ public class Task {
         return description;
     }
 
-    void setDescription(String description) {
+    void setDescription(final String description) {
         this.description = description;
     }
 
@@ -63,7 +56,7 @@ public class Task {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(final boolean done) {
         this.done = done;
     }
 
@@ -71,7 +64,7 @@ public class Task {
         return deadline;
     }
 
-    void setDeadline(LocalDateTime deadline) {
+    void setDeadline(final LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
@@ -79,7 +72,14 @@ public class Task {
         return group;
     }
 
-    void setGroup(TaskGroup group) {
+    void setGroup(final TaskGroup group) {
         this.group = group;
+    }
+
+    public void updateFrom(final Task source) {
+        description = source.description;
+        done = source.done;
+        deadline = source.deadline;
+        group = source.group;
     }
 }

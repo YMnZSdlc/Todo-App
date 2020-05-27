@@ -1,7 +1,7 @@
 package pl.ymz.todoapp.logicservice;
 
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.rpository.TaskGroupRepository;
+import pl.ymz.todoapp.model.TaskGroupRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.TaskRepository;
 
 import javax.sql.DataSource;
 import java.util.*;
@@ -79,6 +79,11 @@ class TestConfiguration {
             @Override
             public List<Task> findAllByGroup_Id(Integer groupId) {
                 return List.of();
+            }
+
+            @Override
+            public List<Task> findAllByGroupIsNull() {
+                return null;
             }
         };
     }

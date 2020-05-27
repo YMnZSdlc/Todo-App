@@ -6,7 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.TaskRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

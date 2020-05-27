@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.TaskRepository;
 
 import java.time.LocalDateTime;
 

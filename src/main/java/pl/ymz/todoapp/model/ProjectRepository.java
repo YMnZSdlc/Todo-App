@@ -1,4 +1,4 @@
-package pl.ymz.todoapp.rpository;
+package pl.ymz.todoapp.model;
 
 import pl.ymz.todoapp.model.Project;
 

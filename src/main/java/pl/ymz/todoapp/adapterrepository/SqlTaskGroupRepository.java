@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.ymz.todoapp.model.TaskGroup;
-import pl.ymz.todoapp.rpository.TaskGroupRepository;
+import pl.ymz.todoapp.model.TaskGroupRepository;
 
 import java.util.List;
 

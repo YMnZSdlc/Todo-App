@@ -8,7 +8,7 @@ import pl.ymz.todoapp.logicservice.TaskGroupService;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
-import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.TaskRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;

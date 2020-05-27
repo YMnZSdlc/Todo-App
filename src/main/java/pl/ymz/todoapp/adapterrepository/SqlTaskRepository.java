@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.ymz.todoapp.model.Task;
-import pl.ymz.todoapp.rpository.TaskRepository;
+import pl.ymz.todoapp.model.TaskRepository;
 
 import java.util.List;
 
@@ -23,4 +23,8 @@ interface SqlTaskRepository extends TaskRepository, JpaRepository<Task, Integer>
 
     @Override
     List<Task> findAllByGroup_Id(Integer groupId);
+
+
+    @Override
+    List<Task> findAllByGroupIsNull();
 }
