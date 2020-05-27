@@ -3,6 +3,8 @@ package pl.ymz.todoapp.logicservice;
 import org.springframework.stereotype.Service;
 import pl.ymz.todoapp.TaskConfigurationProperties;
 import pl.ymz.todoapp.model.Project;
+import pl.ymz.todoapp.model.Task;
+import pl.ymz.todoapp.model.TaskGroup;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupTaskWriteModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
@@ -19,16 +21,13 @@ public class ProjectService {
     private ProjectRepository projectRepository;
     private TaskGroupRepository taskGroupRepository;
     private TaskConfigurationProperties config;
-    private TaskGroupService service;
 
     ProjectService(final ProjectRepository projectRepository,
                    final TaskGroupRepository taskGroupRepository,
-                   final TaskConfigurationProperties config,
-                   final TaskGroupService service) {
+                   final TaskConfigurationProperties config) {
         this.projectRepository = projectRepository;
         this.taskGroupRepository = taskGroupRepository;
         this.config = config;
-        this.service = service;
     }
 
     public List<Project> readAll() {
@@ -49,22 +48,21 @@ public class ProjectService {
             throw new IllegalStateException("Tylko jedna nieskończona grupa z projektu jest dozwolona.");
         }
 
-        GroupReadModel result = projectRepository.findById(projectId)
+        TaskGroup result = projectRepository.findById(projectId)
                 .map(project -> {
-                    var targetGroup = new GroupWriteModel();
+                    var targetGroup = new TaskGroup();
                     targetGroup.setDescription(project.getDescription());
                     targetGroup.setTasks(
                             project.getSteps().stream()
-                                    .map(step -> {
-                                                var task = new GroupTaskWriteModel();
-                                                task.setDescription(step.getDescription());
-                                                task.setDeadline(deadline.plusDays(step.getDaysToDeadline()));
-                                                return task;
-                                            }
+                                    .map(projectStep -> new Task(
+                                            projectStep.getDescription(),
+                                            deadline.plusDays(projectStep.getDaysToDeadline())
+                                            )
                                     ).collect(Collectors.toSet())
                     );
-                    return service.createGroup(targetGroup);
+                    targetGroup.setProject(project);
+                    return taskGroupRepository.save(targetGroup);
                 }).orElseThrow(() -> new IllegalArgumentException("Nie znaleziono projektu z podanym id."));
-        return result;
+        return new GroupReadModel(result);
     }
 }

@@ -28,7 +28,7 @@ public class TaskGroupService {
         this.taskRepository = taskRepository;
     }
 
-    public GroupReadModel createGroup(GroupWriteModel source) {
+    public GroupReadModel createGroup(final GroupWriteModel source) {
         TaskGroup result = taskGroupRepository.save(source.toGroup());
         return new GroupReadModel(result);
     }
