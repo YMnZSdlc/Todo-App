@@ -8,6 +8,7 @@ import pl.ymz.todoapp.model.TaskGroupRepository;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupTaskWriteModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
+import pl.ymz.todoapp.model.projectiondto.ProjectWriteModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,12 +36,12 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    Project create(final Project entity) {
-        return projectRepository.save(entity);
-    }
+//    Project create(final Project entity) {
+//        return projectRepository.save(entity);
+//    }
 
-    public Project save(final Project toSave) {
-        return projectRepository.save(toSave);
+    public Project save(final ProjectWriteModel toSave) {
+        return projectRepository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime deadline, int projectId) {
