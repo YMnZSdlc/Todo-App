@@ -3,12 +3,8 @@ package pl.ymz.todoapp.logicservice;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pl.ymz.todoapp.TaskConfigurationProperties;
-import pl.ymz.todoapp.model.Project;
-import pl.ymz.todoapp.model.ProjectStep;
-import pl.ymz.todoapp.model.TaskGroup;
+import pl.ymz.todoapp.model.*;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
-import pl.ymz.todoapp.model.ProjectRepository;
-import pl.ymz.todoapp.model.TaskGroupRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -87,7 +83,7 @@ class ProjectServiceTest {
         //and
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(true);
         //system under test
-        var toTest = new ProjectService(mockRepository, null, mockConfig);
+        var toTest = new ProjectService(mockRepository, null, null, mockConfig);
 
         //when
         var exception = catchThrowable(() -> toTest.createGroup(LocalDateTime.now(), 0));
@@ -109,12 +105,12 @@ class ProjectServiceTest {
         when(mockRepository.findById(anyInt())).thenReturn(Optional.of(project));
         //and
         InMemoryTaskGroupRepository inMemoryGroupRepository = inMemoryTaskGroupRepository();
-        var serviceWithInMemRepo = new  TaskGroupService(inMemoryGroupRepository, null);
+        var serviceWithInMemRepo = new TaskGroupService(inMemoryGroupRepository, null);
         int countBeforeCall = inMemoryGroupRepository.count();
         //and
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(true);
         //system under test
-        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, mockConfig);
+        var toTest = new ProjectService(mockRepository, inMemoryGroupRepository, null, mockConfig);
 
         //when
         GroupReadModel result = toTest.createGroup(today, 1);
@@ -156,7 +152,7 @@ class ProjectServiceTest {
         var mockTaskGroupRepository = mock(TaskGroupRepository.class);
         when(mockTaskGroupRepository.existsByDoneIsFalseAndProject_Id(anyInt())).thenReturn(true);
         TaskConfigurationProperties mockConfig = getMockConfigurationProperties(false);
-        return new ProjectService(null, mockTaskGroupRepository, mockConfig);
+        return new ProjectService(null, mockTaskGroupRepository, null, mockConfig);
     }
 
     private InMemoryTaskGroupRepository inMemoryTaskGroupRepository() {
