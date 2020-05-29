@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo-App: projects</title>
-    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm.min.css">
-    <link rel="stylesheet" href="awsm.min.css">
+    <!--    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm.min.css">-->
+    <link rel="stylesheet" type="text/css" href="css/awsm.css"/>
 </head>
 <body>
 <main>
-    <form action="#" method="post">
+    <!--/*@thymesVar id="project" type="pl.ymz.todoapp.model.projectiondto.ProjectWriteModel"*/-->
+    <form action="#" method="post" th:action="@{/projects}" th:object="${project}">
         <fieldset>
             <legend>Nowy projekt</legend>
             <label>Opis
-                <input type="text" />
+                <!--                <input type="text" th:field="${project.description}"/>  Poniżej inny zapis-->
+                <input type="text" th:field="*{description}"/>
             </label>
         </fieldset>
     </form>
