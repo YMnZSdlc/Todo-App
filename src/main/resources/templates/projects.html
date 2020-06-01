@@ -9,6 +9,8 @@
 </head>
 <body>
 <main>
+    <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+    <h1 th:if="${message != null}" th:text="${message}"></h1>
     <!--/*@thymesVar id="project" type="pl.ymz.todoapp.model.projectiondto.ProjectWriteModel"*/-->
     <form action="#" method="post" th:action="@{/projects}" th:object="${project}">
         <fieldset>
