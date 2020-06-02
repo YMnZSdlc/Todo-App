@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.ymz.todoapp.logicservice.ProjectService;
+import pl.ymz.todoapp.model.Project;
 import pl.ymz.todoapp.model.ProjectStep;
 import pl.ymz.todoapp.model.projectiondto.ProjectWriteModel;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/projects")
@@ -48,5 +51,9 @@ public class ProjectController {
         return "projects";
     }
 
-
+    @ModelAttribute("projects")
+    List<Project> getProjects(){
+        logger.info("Popranie listy projektów");
+        return projectService.readAll();
+    }
 }
