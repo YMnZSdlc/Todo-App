@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header th:fragment="header">
+    <p>ToDo-App</p>
+</header>
+
+<nav th:fragment="menu">
+    <a th:href="@{/projects}">projects</a>
+    <a th:href="@{/tasks}">Taski</a>
+    <a th:href="@{/group}">grupy</a>
+    <a th:href="@{/contact}">Contact</a>
+</nav>
+
+<footer th:fragment="footer">
+    <p>&copy; 2020 YMnZSdlc</p>
+</footer>
+
+</body>
+</html>

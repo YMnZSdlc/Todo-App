@@ -30,6 +30,8 @@
     </style>
 </head>
 <body>
+<div th:insert="fragments/fragment :: menu"></div>
+<div th:insert="fragments/fragment :: header"></div>
 <main>
     <!--/*@thymesVar id="message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}"></h1>
@@ -74,5 +76,6 @@
         </form>
     </fieldset>
 </main>
+<div th:insert="fragments/fragment :: footer"></div>
 </body>
 </html>
