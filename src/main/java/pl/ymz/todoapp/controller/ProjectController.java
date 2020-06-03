@@ -61,7 +61,7 @@ public class ProjectController {
 
     @ModelAttribute("projects")
     List<Project> getProjects(){
-        logger.info("Popranie listy projektów");
+        logger.info("Pobranie listy projektów");
         return projectService.readAll();
     }
 }
