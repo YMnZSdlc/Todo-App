@@ -49,7 +49,6 @@ public class ProjectService {
                 && taskGroupRepository.existsByDoneIsFalseAndProject_Id(projectId)) {
             throw new IllegalStateException("Tylko jedna nieskończona grupa z projektu jest dozwolona.");
         }
-
         return projectRepository.findById(projectId)
                 .map(project -> {
                     var targetGroup = new GroupWriteModel();

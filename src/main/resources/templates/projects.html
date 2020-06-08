@@ -48,6 +48,8 @@
             <ul class="P(0)">
                 <li th:each="step : ${project.steps}" th:text="|${step.description} (${step.daysToDeadline} dni)|"></li>
             </ul>
+
+<!--Tworzenie grupy zadań z wyświetlane go projektu-->
             <form action="#" method="post" th:action="@{/projects/{projectId}(projectId=${project.id})}">
                 <label> Termin ostateczny
                     <input name="deadline" type="datetime-local" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}">
