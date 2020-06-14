@@ -46,6 +46,7 @@ public class ProjectController {
         }
         projectService.save(current);
         model.addAttribute("project", new ProjectWriteModel());
+        model.addAttribute("projects", getProjects());
         model.addAttribute("message", "Dodano projekt");
         logger.info("Dodanie projektu i potwierdzenia");
         return "projects";
