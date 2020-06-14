@@ -3,11 +3,13 @@ package pl.ymz.todoapp.model.projectiondto;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskGroup;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 //To jest w sumie taki DTO-data transfer object, do zapisu.
 public class GroupTaskWriteModel {
 
+    @NotBlank(message = "Opis zadania wymagany")
     private String description;
     private LocalDateTime deadline;
 

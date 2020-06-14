@@ -2,20 +2,23 @@ package pl.ymz.todoapp.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.logicservice.TaskGroupService;
 import pl.ymz.todoapp.model.Task;
+import pl.ymz.todoapp.model.TaskRepository;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
-import pl.ymz.todoapp.model.TaskRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/groups")
 public class TaskGroupController {
 
@@ -28,7 +31,14 @@ public class TaskGroupController {
         this.taskGroupService = taskGroupService;
     }
 
-    @PostMapping
+    @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
+    String showGroups(Model model) {
+        model.addAttribute("groupWM", new GroupWriteModel());
+        return "groups";
+    }
+
+    @ResponseBody
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel groupToCreate) {
         logger.info("Próba utworzenia grupy zadań");
         GroupReadModel taskGroup = taskGroupService.createGroup(groupToCreate);
@@ -36,18 +46,21 @@ public class TaskGroupController {
 //        return ResponseEntity.created(URI.create("/")).body(taskGroupService.createGroup(groupToCreate));
     }
 
-    @GetMapping
+    @ResponseBody
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<GroupReadModel>> readAllGroups() {
         logger.warn("Odczyt wszystkich grup zadań");
         return ResponseEntity.ok(taskGroupService.readAll());
     }
 
-    @GetMapping("/{id}")
+    @ResponseBody
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Task>> readAllTasksFromGroup(@PathVariable int id) {
         logger.info("Kontroler z parametrami stron");
         return ResponseEntity.ok(taskRepository.findAllByGroup_Id(id));
     }
 
+    @ResponseBody
     @Transactional
     @PatchMapping("/{id}")
     public ResponseEntity<?> toggleTask(@PathVariable int id) {
@@ -56,12 +69,12 @@ public class TaskGroupController {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    ResponseEntity<String> handleIllegalArgument (IllegalArgumentException e){
+    ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e) {
         return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(IllegalStateException.class)
-    ResponseEntity<String> handleIllegalState (IllegalStateException e){
+    ResponseEntity<String> handleIllegalState(IllegalStateException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
