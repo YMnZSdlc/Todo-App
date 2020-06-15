@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo-App: groups</title>
+  <!--    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm.min.css">-->
+  <!--    Style css-->
+  <link rel="stylesheet" type="text/css" href="css/awsm.css"/>
+  <style>
+    .Bd {
+      border: solid 1px black;
+    }
+
+    .Bdc\(red\) {
+      border-color: red !important;
+    }
+
+    .C\(red\) {
+      color: red;
+    }
+
+    .M\(0\) {
+      margin: 0;
+    }
+
+    .P\(0\) {
+      padding: 0;
+    }
+
+    .P\(10px\) {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!--Fragmenty thymeleaf-->
+<div th:insert="fragments/fragment :: menu"></div>
+<div th:insert="fragments/fragment :: header"></div>
+
+
+<main>
+  <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+  <h1 th:if="${message != null}" th:text="${message}"></h1>
+  <!--/*@thymesVar id="groups" type="java.util.List<pl.ymz.todoapp.model.projectiondto.GroupReadModel>"*/-->
+  <dl th:each="group : ${groups}" class="Bd P(10px)">
+    <dt th:text="${group.description}">
+      <label>
+        <input type="checkbox"/>
+        <span th:text="${group.description}"></span>
+        <small th:text="|(${group.deadline})|"></small>
+      </label>
+      <hr class="M(0)"/>
+    </dt>
+    <dd>
+      <a th:href="@{/tasks.html(group=${group.id})}">
+      <ul class="P(0)">
+        <li th:each="task : ${group.tasks}">
+          <span th:unless="${task.done}" th:text="${task.description}"></span>
+          <del th:if="${task.done}" th:text="${task.description}"></del>
+        </li>
+      </ul>
+      </a>
+    </dd>
+  </dl>
+
+  <fieldset>
+    <legend>Nowa grupa zadań</legend>
+    <!--/*@thymesVar id="group" type="pl.ymz.todoapp.model.projectiondto.GroupWriteModel"*/-->
+    <form action="#" method="post" th:action="@{/groups}" th:object="${group}">
+
+      <p class="C(red)" th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
+
+      <!--Nazwa projektu-->
+      <label>Opis
+        <!--<input type="text" th:field="${group.description}"/>  Poniżej inny zapis-->
+        <input type="text" th:field="*{description}" th:errorclass="'Bdc(red)'"/>
+      </label>
+
+      <!--Zadania w grupie zadań-->
+      <fieldset th:each="task, taskStat: *{tasks}">
+        <!--Numeruje zadania w grupie zadań-->
+        <legend th:text="|Zadanie numer ${taskStat.index + 1}|">Krok ?</legend>
+        <label>Opis zadania
+          <input type="text" th:field="*{tasks[__${taskStat.index}__].description}"
+                 th:errorclass="'Bdc(red)'">
+        </label>
+        <label>Termin wykonania zadania
+          <input type="number" th:field="*{tasks[__${taskStat.index}__].deadline}"
+                 th:errorclass="'Bdc(red)'">
+        </label>
+      </fieldset>
+      <div>
+        <button type="submit" name="addTask">+</button>
+      </div>
+      <p>
+        <button type="submit">Dodaj</button>
+        <button type="reset">Wyczyść</button>
+      </p>
+    </form>
+  </fieldset>
+</main>
+
+<!--Fragment footer / stopka-->
+<div th:insert="fragments/fragment :: footer"></div>
+</body>
+</html>

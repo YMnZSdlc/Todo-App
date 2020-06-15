@@ -6,12 +6,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.ymz.todoapp.logicservice.TaskGroupService;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskRepository;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
+import pl.ymz.todoapp.model.projectiondto.GroupTaskWriteModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
+import pl.ymz.todoapp.model.projectiondto.ProjectWriteModel;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -33,7 +36,30 @@ public class TaskGroupController {
 
     @GetMapping(produces = MediaType.TEXT_HTML_VALUE)
     String showGroups(Model model) {
-        model.addAttribute("groupWM", new GroupWriteModel());
+        model.addAttribute("group", new GroupWriteModel());
+        return "groups";
+    }
+
+    @PostMapping(produces = MediaType.TEXT_HTML_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    String addGroup(@ModelAttribute("group") @Valid GroupWriteModel current,
+                    BindingResult bindingResult,
+                    Model model) {
+        if (bindingResult.hasErrors()) {
+            logger.warn("Błąd walidacji dodawanych kroków");
+            return "groups";
+        }
+        taskGroupService.createGroup(current);
+        model.addAttribute("group", new GroupWriteModel());
+        model.addAttribute("groups", getGroups());
+        model.addAttribute("message", "Dodano grupę");
+        logger.info("Dodanie projektu i potwierdzenia");
+        return "groups";
+    }
+
+    @PostMapping(params = "addTask", produces = MediaType.TEXT_HTML_VALUE)
+    String addGroupTask(@ModelAttribute("task") GroupWriteModel current) {
+        current.getTasks().add(new GroupTaskWriteModel());
+        logger.info("Dodanie zadania do grupy zadań");
         return "groups";
     }
 
@@ -76,5 +102,11 @@ public class TaskGroupController {
     @ExceptionHandler(IllegalStateException.class)
     ResponseEntity<String> handleIllegalState(IllegalStateException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ModelAttribute("groups")
+    List<GroupReadModel> getGroups() {
+        logger.info("Pobranie listy z grupami zadań");
+        return taskGroupService.readAll();
     }
 }
