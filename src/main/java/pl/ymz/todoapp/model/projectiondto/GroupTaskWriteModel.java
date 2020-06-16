@@ -1,5 +1,6 @@
 package pl.ymz.todoapp.model.projectiondto;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.ymz.todoapp.model.Task;
 import pl.ymz.todoapp.model.TaskGroup;
 
@@ -11,6 +12,7 @@ public class GroupTaskWriteModel {
 
     @NotBlank(message = "Opis zadania wymagany")
     private String description;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime deadline;
 
     public String getDescription() {

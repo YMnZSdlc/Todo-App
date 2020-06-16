@@ -39,8 +39,8 @@ public class ProjectController {
     @PostMapping
     String addProject(@ModelAttribute("project") @Valid ProjectWriteModel current,
                       BindingResult bindingResult,
-                      Model model){
-        if (bindingResult.hasErrors()){
+                      Model model) {
+        if (bindingResult.hasErrors()) {
             logger.warn("Błąd walidacji dodawanych kroków");
             return "projects";
         }
@@ -53,19 +53,19 @@ public class ProjectController {
     }
 
     @PostMapping(params = "addStep")
-    String addProjectStep (@ModelAttribute("project") ProjectWriteModel current) {
+    String addProjectStep(@ModelAttribute("project") ProjectWriteModel current) {
         current.getSteps().add(new ProjectStep());
         logger.info("Dodanie kroku w projekcie");
         return "projects";
     }
 
     @PostMapping("/{id}")
-    String createGroup (@ModelAttribute("project") ProjectWriteModel current,
-                        Model model,
-                        @PathVariable int id,
-                        @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime deadline){
+    String createGroup(@ModelAttribute("project") ProjectWriteModel current,
+                       Model model,
+                       @PathVariable int id,
+                       @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime deadline) {
         try {
-            projectService.createGroup(deadline,id);
+            projectService.createGroup(deadline, id);
             logger.info("Dodano grupę");
             model.addAttribute("message", "Dodano grupę");
         } catch (IllegalStateException | IllegalArgumentException e) {
@@ -76,7 +76,7 @@ public class ProjectController {
     }
 
     @ModelAttribute("projects")
-    List<Project> getProjects(){
+    List<Project> getProjects() {
         logger.info("Pobranie listy projektów");
         return projectService.readAll();
     }

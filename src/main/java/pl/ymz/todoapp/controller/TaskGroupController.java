@@ -14,7 +14,6 @@ import pl.ymz.todoapp.model.TaskRepository;
 import pl.ymz.todoapp.model.projectiondto.GroupReadModel;
 import pl.ymz.todoapp.model.projectiondto.GroupTaskWriteModel;
 import pl.ymz.todoapp.model.projectiondto.GroupWriteModel;
-import pl.ymz.todoapp.model.projectiondto.ProjectWriteModel;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
