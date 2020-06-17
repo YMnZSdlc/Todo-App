@@ -56,7 +56,7 @@ public class TaskGroupController {
     }
 
     @PostMapping(params = "addTask", produces = MediaType.TEXT_HTML_VALUE)
-    String addGroupTask(@ModelAttribute("task") GroupWriteModel current) {
+    String addGroupTask(@ModelAttribute("group") GroupWriteModel current) {
         current.getTasks().add(new GroupTaskWriteModel());
         logger.info("Dodanie zadania do grupy zadań");
         return "groups";
