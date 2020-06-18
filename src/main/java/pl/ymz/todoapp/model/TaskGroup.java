@@ -2,6 +2,7 @@ package pl.ymz.todoapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -68,5 +69,9 @@ public class TaskGroup {
 
     public void setProject(final Project project) {
         this.project = project;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return audit.getCreatedOn();
     }
 }

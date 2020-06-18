@@ -19,10 +19,12 @@ public class GroupReadModel {
      */
     private LocalDateTime deadline;
     private Set<GroupTaskReadModel> tasks;
+    private LocalDateTime createTime;
 
     public GroupReadModel(TaskGroup source) {
         id = source.getId();
         description = source.getDescription();
+        createTime = source.getCreatedTime();
         source.getTasks()
                 .stream()
                 .map(Task::getDeadline)
@@ -65,5 +67,9 @@ public class GroupReadModel {
 
     public void setTasks(final Set<GroupTaskReadModel> tasks) {
         this.tasks = tasks;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
     }
 }

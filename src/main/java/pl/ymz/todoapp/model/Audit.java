@@ -1,5 +1,7 @@
 package pl.ymz.todoapp.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -16,8 +18,12 @@ class Audit {
         createdOn = LocalDateTime.now();
     }
 
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
     @PreUpdate
-    void preMerge() {
+    void preUpdate() {
         updatedOn = LocalDateTime.now();
     }
 }
